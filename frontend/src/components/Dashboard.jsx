@@ -22,7 +22,7 @@ export default function Dashboard() {
             Unable to connect to backend: {error}
           </p>
           <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
-            Make sure the Django server is running on http://localhost:8000
+            Make sure the backend server is running and accessible
           </p>
         </div>
       </div>
