@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { algorithmAPI, executionAPI, handleAPIError } from '../services/api';
+import { useDashboard } from '../contexts/DashboardContext';
 
 export const useAlgorithms = (type = null) => {
   const [algorithms, setAlgorithms] = useState([]);
@@ -31,12 +32,17 @@ export const useAlgorithms = (type = null) => {
 export const useAlgorithmExecution = () => {
   const [recording, setRecording] = useState(false);
   const [error, setError] = useState(null);
+  const { refreshDashboard } = useDashboard();
 
   const recordExecution = async (executionData) => {
     try {
       setRecording(true);
       const response = await executionAPI.record(executionData);
       setError(null);
+      
+      // Trigger dashboard refresh after successful recording
+      refreshDashboard();
+      
       return response.data;
     } catch (err) {
       setError(handleAPIError(err));
@@ -53,23 +59,24 @@ export const usePerformanceStats = (type = null) => {
   const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { refreshTrigger } = useDashboard();
+
+  const fetchStats = async () => {
+    try {
+      setLoading(true);
+      const response = await executionAPI.getPerformanceStats(type);
+      setStats(response.data);
+      setError(null);
+    } catch (err) {
+      setError(handleAPIError(err));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        setLoading(true);
-        const response = await executionAPI.getPerformanceStats(type);
-        setStats(response.data);
-        setError(null);
-      } catch (err) {
-        setError(handleAPIError(err));
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchStats();
-  }, [type]);
+  }, [type, refreshTrigger]); // Add refreshTrigger as dependency
 
-  return { stats, loading, error, refetch: () => fetchStats() };
+  return { stats, loading, error, refetch: fetchStats };
 };

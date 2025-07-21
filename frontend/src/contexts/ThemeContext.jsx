@@ -24,19 +24,32 @@ export function ThemeProvider({ children }) {
     return false;
   });
 
+  // Initialize theme on mount
   useEffect(() => {
-    // Save preference to localStorage
-    localStorage.setItem('darkMode', JSON.stringify(isDark));
-    
-    // Update document class
+    // Apply initial theme
     if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+  }, []); // Run once on mount
+
+  useEffect(() => {
+    // Save preference to localStorage and update document class
+    localStorage.setItem('darkMode', JSON.stringify(isDark));
+    
+    // Update document class
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      console.log('Applied dark theme');
+    } else {
+      document.documentElement.classList.remove('dark');
+      console.log('Applied light theme');
+    }
   }, [isDark]);
 
   const toggleTheme = () => {
+    console.log('Toggling theme from', isDark ? 'dark' : 'light', 'to', !isDark ? 'dark' : 'light');
     setIsDark(!isDark);
   };
 

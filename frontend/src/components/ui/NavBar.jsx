@@ -4,6 +4,11 @@ import { useTheme } from "../../contexts/ThemeContext";
 export default function NavBar() {
   const { isDark, toggleTheme } = useTheme();
 
+  const handleToggle = () => {
+    console.log('Theme toggle button clicked!');
+    toggleTheme();
+  };
+
   return (
     <nav className="bg-gray-900 text-white px-6 py-4 flex justify-between items-center shadow-lg">
       <h1 className="text-2xl font-bold tracking-wide">⚙️ Algorithm Visualizer</h1>
@@ -14,7 +19,7 @@ export default function NavBar() {
           <a href="#pathfinding" className="hover:text-blue-400 transition">Pathfinding</a>
         </div>
         <button
-          onClick={toggleTheme}
+          onClick={handleToggle}
           className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
           title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         >
