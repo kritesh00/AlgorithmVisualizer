@@ -1,0 +1,40 @@
+# Django Framework
+Django==5.2.4
+
+# Django REST Framework for API development
+djangorestframework==3.16.0
+
+# Database support
+# SQLite is included with Django by default
+# Uncomment below if you plan to use PostgreSQL or MySQL
+# psycopg2-binary==2.9.9  # PostgreSQL adapter
+# mysqlclient==2.2.4      # MySQL adapter
+
+# CORS handling for cross-origin requests
+django-cors-headers==4.4.0
+
+# Enhanced Django admin interface
+django-jazzmin==2.6.0
+
+# Development and debugging tools
+# Uncomment for development
+# django-debug-toolbar==4.4.6
+# django-extensions==3.2.3
+
+# Production deployment (uncomment if needed)
+# gunicorn==21.2.0        # WSGI HTTP Server
+# whitenoise==6.6.0       # Static file serving
+# python-decouple==3.8    # Environment variable management
+
+# Testing (uncomment if needed)
+# pytest==7.4.4
+# pytest-django==4.7.0
+# factory-boy==3.3.0
+
+# Code quality (uncomment if needed)
+# flake8==7.0.0
+# black==23.12.1
+# isort==5.13.2
+
+# API documentation (uncomment if needed)
+# drf-spectacular==0.27.0  # OpenAPI 3 schema generation
