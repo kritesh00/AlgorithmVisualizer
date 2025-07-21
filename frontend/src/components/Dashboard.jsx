@@ -1,8 +1,10 @@
 import React from 'react';
 import { usePerformanceStats } from '../hooks/useAPI';
+import { useDashboard } from '../contexts/DashboardContext';
 
 export default function Dashboard() {
-  const { stats, loading, error } = usePerformanceStats();
+  const { refreshTrigger } = useDashboard();
+  const { stats, loading, error } = usePerformanceStats(refreshTrigger);
 
   if (loading) {
     return (
