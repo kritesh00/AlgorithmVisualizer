@@ -1,0 +1,86 @@
+[
+  {
+    "model": "algorithm_api.algorithm",
+    "pk": 1,
+    "fields": {
+      "name": "Bubble Sort",
+      "description": "A simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.",
+      "algorithm_type": "sorting",
+      "complexity_time": "O(n²)",
+      "complexity_space": "O(1)",
+      "code_sample": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "algorithm_api.algorithm",
+    "pk": 2,
+    "fields": {
+      "name": "Quick Sort",
+      "description": "An efficient divide-and-conquer algorithm that works by selecting a 'pivot' element and partitioning the array around it.",
+      "algorithm_type": "sorting",
+      "complexity_time": "O(n log n)",
+      "complexity_space": "O(log n)",
+      "code_sample": "def quick_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quick_sort(left) + middle + quick_sort(right)",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "algorithm_api.algorithm",
+    "pk": 3,
+    "fields": {
+      "name": "Merge Sort",
+      "description": "A stable divide-and-conquer algorithm that divides the array into halves, sorts them separately, and then merges them.",
+      "algorithm_type": "sorting",
+      "complexity_time": "O(n log n)",
+      "complexity_space": "O(n)",
+      "code_sample": "def merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "algorithm_api.algorithm",
+    "pk": 4,
+    "fields": {
+      "name": "Linear Search",
+      "description": "A simple search algorithm that checks every element in the list sequentially until the target is found.",
+      "algorithm_type": "searching",
+      "complexity_time": "O(n)",
+      "complexity_space": "O(1)",
+      "code_sample": "def linear_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return -1",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "algorithm_api.algorithm",
+    "pk": 5,
+    "fields": {
+      "name": "Binary Search",
+      "description": "An efficient search algorithm that works on sorted arrays by repeatedly dividing the search interval in half.",
+      "algorithm_type": "searching",
+      "complexity_time": "O(log n)",
+      "complexity_space": "O(1)",
+      "code_sample": "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "algorithm_api.algorithm",
+    "pk": 6,
+    "fields": {
+      "name": "Dijkstra's Algorithm",
+      "description": "A graph search algorithm that finds the shortest path between nodes in a weighted graph with non-negative edge weights.",
+      "algorithm_type": "pathfinding",
+      "complexity_time": "O(V²) or O(E + V log V)",
+      "complexity_space": "O(V)",
+      "code_sample": "import heapq\n\ndef dijkstra(graph, start):\n    distances = {node: float('infinity') for node in graph}\n    distances[start] = 0\n    priority_queue = [(0, start)]\n    \n    while priority_queue:\n        current_distance, current_node = heapq.heappop(priority_queue)\n        \n        if current_distance > distances[current_node]:\n            continue\n            \n        for neighbor, weight in graph[current_node].items():\n            distance = current_distance + weight\n            if distance < distances[neighbor]:\n                distances[neighbor] = distance\n                heapq.heappush(priority_queue, (distance, neighbor))\n    \n    return distances",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  }
+]
