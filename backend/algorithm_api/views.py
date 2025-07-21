@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, F
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -39,14 +39,26 @@ class AlgorithmExecutionViewSet(viewsets.ModelViewSet):
         else:
             executions = AlgorithmExecution.objects.all()
         
-        stats = executions.values('algorithm__algorithm_type').annotate(
+        # Get stats with proper field mapping
+        stats_query = executions.values('algorithm__algorithm_type').annotate(
             avg_execution_time=Avg('execution_time'),
             total_executions=Count('id'),
             avg_comparisons=Avg('comparisons'),
             avg_swaps=Avg('swaps')
         )
         
-        serializer = AlgorithmStatsSerializer(stats, many=True)
+        # Format the data to match serializer expectations
+        formatted_stats = []
+        for stat in stats_query:
+            formatted_stats.append({
+                'algorithm_type': stat['algorithm__algorithm_type'],
+                'avg_execution_time': stat['avg_execution_time'] or 0,
+                'total_executions': stat['total_executions'] or 0,
+                'avg_comparisons': stat['avg_comparisons'] or 0,
+                'avg_swaps': stat['avg_swaps'] or 0,
+            })
+        
+        serializer = AlgorithmStatsSerializer(formatted_stats, many=True)
         return Response(serializer.data)
 
     @action(detail=False, methods=['post'])
