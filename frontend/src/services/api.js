@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+// Force production URL to override any caching issues
+const API_BASE_URL = 'https://django-backend-86sb.onrender.com/api';
 
-const API_BASE_URL = 'https://django-backend-86sb.onrender.com/';
+console.log('API_BASE_URL:', API_BASE_URL); // Debug log to verify URL
 
 // Create axios instance with default config
 const api = axios.create({
