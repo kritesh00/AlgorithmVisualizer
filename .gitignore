@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Large executable files
+frontend/tailwindcss.exe
+tailwindcss.exe
+*.exe
+
 # Dependencies
 node_modules/
 npm-debug.log*
