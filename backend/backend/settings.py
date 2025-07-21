@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&ql73i=&f(7_q9xh#eaki%8z6tdu92rf5h2+!np1itss*c*rr%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['your-app-name.onrender.com']
 
 
 # Application definition
@@ -40,8 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'algorithm_api',
+    'corsheaders',
 ]
+MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
 
+CORS_ALLOWED_ORIGINS = [
+    "https://yourusername.github.io",  # frontend domain
+]
 MIDDLEWARE = [
     'backend.cors_middleware.CorsMiddleware',  # Custom CORS middleware
     'django.middleware.security.SecurityMiddleware',
