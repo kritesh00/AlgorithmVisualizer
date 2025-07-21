@@ -25,7 +25,7 @@ router.register(r'algorithms', AlgorithmViewSet)
 router.register(r'executions', AlgorithmExecutionViewSet)
 
 urlpatterns = [
-    path('', lambda request: HttpResponse("✅ Backend is working!"))
+    path('', lambda request: HttpResponse("✅ Backend is working!")),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
