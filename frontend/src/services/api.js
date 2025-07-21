@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// ✅ Updated: Use Render backend instead of localhost
-const API_BASE_URL = 'https://django-backend-86sb.onrender.com/api';
+
+const API_BASE_URL = 'https://django-backend-86sb.onrender.com/';
 
 // Create axios instance with default config
 const api = axios.create({
