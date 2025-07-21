@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AlgorithmInfo from "./AlgorithmInfo";
+import { useAlgorithmExecution } from "../hooks/useAPI";
 
 export default function SearchingVisualizer() {
   const [array, setArray] = useState([]);
@@ -10,6 +11,10 @@ export default function SearchingVisualizer() {
   const [foundIndex, setFoundIndex] = useState(-1);
   const [speed, setSpeed] = useState(200);
   const [cancelRequested, setCancelRequested] = useState(false);
+  const [comparisons, setComparisons] = useState(0);
+  const [executionTime, setExecutionTime] = useState(0);
+  
+  const { recordExecution } = useAlgorithmExecution();
 
   // Generate sorted array for binary search
   const generateArray = () => {
@@ -20,11 +25,38 @@ export default function SearchingVisualizer() {
     setArray(newArray);
     setCurrentIndex(-1);
     setFoundIndex(-1);
+    setComparisons(0);
+    setExecutionTime(0);
   };
 
   useEffect(() => {
     generateArray();
   }, []);
+
+  // Record execution to backend
+  const recordToBackend = async (algorithmName, startTime, compCount) => {
+    try {
+      const endTime = Date.now();
+      const totalTime = endTime - startTime;
+      setExecutionTime(totalTime);
+      
+      // Algorithm mapping for searching algorithms
+      const algorithmMap = {
+        "Linear Search": 4,
+        "Binary Search": 5
+      };
+      
+      await recordExecution({
+        algorithm: algorithmMap[algorithmName],
+        array_size: array.length,
+        execution_time: totalTime,
+        comparisons: compCount,
+        swaps: 0 // Searching doesn't involve swaps
+      });
+    } catch (error) {
+      console.error('Failed to record execution:', error);
+    }
+  };
 
   // Cancel searching
   const cancelSearching = () => {
@@ -38,16 +70,25 @@ export default function SearchingVisualizer() {
     setCurrentIndex(-1);
     setFoundIndex(-1);
     setCancelRequested(false);
+    setComparisons(0);
+    const startTime = Date.now();
+    let compCount = 0;
     
     for (let i = 0; i < array.length; i++) {
       if (cancelRequested) break;
       setCurrentIndex(i);
+      compCount++;
+      setComparisons(compCount);
       await new Promise(resolve => setTimeout(resolve, speed));
       
       if (array[i] === target) {
         setFoundIndex(i);
         break;
       }
+    }
+    
+    if (!cancelRequested) {
+      await recordToBackend("Linear Search", startTime, compCount);
     }
     
     setSearching(false);
@@ -63,6 +104,9 @@ export default function SearchingVisualizer() {
     setCurrentIndex(-1);
     setFoundIndex(-1);
     setCancelRequested(false);
+    setComparisons(0);
+    const startTime = Date.now();
+    let compCount = 0;
     
     let left = 0;
     let right = array.length - 1;
@@ -70,6 +114,8 @@ export default function SearchingVisualizer() {
     while (left <= right && !cancelRequested) {
       const mid = Math.floor((left + right) / 2);
       setCurrentIndex(mid);
+      compCount++;
+      setComparisons(compCount);
       await new Promise(resolve => setTimeout(resolve, speed));
       
       if (array[mid] === target) {
@@ -80,6 +126,10 @@ export default function SearchingVisualizer() {
       } else {
         right = mid - 1;
       }
+    }
+    
+    if (!cancelRequested) {
+      await recordToBackend("Binary Search", startTime, compCount);
     }
     
     setSearching(false);
@@ -99,6 +149,23 @@ export default function SearchingVisualizer() {
       
       {/* Algorithm Information */}
       <AlgorithmInfo type="searching" algorithmName={algorithm || "Linear Search"} />
+      
+      {/* Performance Stats */}
+      {(comparisons > 0 || executionTime > 0) && (
+        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+          <h4 className="font-semibold mb-2">Performance Metrics:</h4>
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="text-center">
+              <div className="text-xl font-bold text-blue-600">{comparisons}</div>
+              <div>Comparisons</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl font-bold text-purple-600">{executionTime}ms</div>
+              <div>Execution Time</div>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Controls */}
       <div className="mb-6 flex flex-wrap gap-4 items-center">

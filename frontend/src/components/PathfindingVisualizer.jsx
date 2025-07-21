@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import AlgorithmInfo from "./AlgorithmInfo";
+import { useAlgorithmExecution } from "../hooks/useAPI";
 
 export default function PathfindingVisualizer() {
   const ROWS = 15;
@@ -16,6 +17,10 @@ export default function PathfindingVisualizer() {
   const [drawingMode, setDrawingMode] = useState("wall"); // wall or clear
   const [speed, setSpeed] = useState(50);
   const [cancelRequested, setCancelRequested] = useState(false);
+  const [executionTime, setExecutionTime] = useState(0);
+  const [nodesVisited, setNodesVisited] = useState(0);
+  
+  const { recordExecution } = useAlgorithmExecution();
 
   // Initialize grid
   const createGrid = useCallback(() => {
@@ -56,6 +61,32 @@ export default function PathfindingVisualizer() {
       }))
     );
     setGrid(newGrid);
+    setNodesVisited(0);
+    setExecutionTime(0);
+  };
+
+  // Record execution to backend
+  const recordToBackend = async (algorithmName, startTime, visitedCount, gridSize) => {
+    try {
+      const endTime = Date.now();
+      const totalTime = endTime - startTime;
+      setExecutionTime(totalTime);
+      
+      // Algorithm mapping for pathfinding algorithms
+      const algorithmMap = {
+        "Dijkstra's Algorithm": 6
+      };
+      
+      await recordExecution({
+        algorithm: algorithmMap[algorithmName],
+        array_size: gridSize, // Use grid size instead of array size
+        execution_time: totalTime,
+        comparisons: visitedCount, // Use nodes visited as comparisons
+        swaps: 0 // Pathfinding doesn't involve swaps
+      });
+    } catch (error) {
+      console.error('Failed to record execution:', error);
+    }
   };
 
   // Clear walls
@@ -131,6 +162,9 @@ export default function PathfindingVisualizer() {
     setAlgorithm("Dijkstra's Algorithm");
     setCancelRequested(false);
     clearPath();
+    setNodesVisited(0);
+    const startTime = Date.now();
+    let visitedCount = 0;
     
     const newGrid = [...grid];
     const startNode = newGrid[START_ROW][START_COL];
@@ -153,6 +187,8 @@ export default function PathfindingVisualizer() {
       if (closestNode.distance === Infinity) break;
       
       closestNode.isVisited = true;
+      visitedCount++;
+      setNodesVisited(visitedCount);
       setGrid([...newGrid]);
       await new Promise(resolve => setTimeout(resolve, speed));
       
@@ -177,6 +213,10 @@ export default function PathfindingVisualizer() {
       }
     }
     
+    if (!cancelRequested) {
+      await recordToBackend("Dijkstra's Algorithm", startTime, visitedCount, ROWS * COLS);
+    }
+    
     setIsRunning(false);
     setAlgorithm("");
     setCancelRequested(false);
@@ -190,6 +230,23 @@ export default function PathfindingVisualizer() {
       
       {/* Algorithm Information */}
       <AlgorithmInfo type="pathfinding" algorithmName="Dijkstra's Algorithm" />
+      
+      {/* Performance Stats */}
+      {(nodesVisited > 0 || executionTime > 0) && (
+        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+          <h4 className="font-semibold mb-2">Performance Metrics:</h4>
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="text-center">
+              <div className="text-xl font-bold text-blue-600">{nodesVisited}</div>
+              <div>Nodes Visited</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl font-bold text-purple-600">{executionTime}ms</div>
+              <div>Execution Time</div>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Controls */}
       <div className="mb-6 flex flex-wrap gap-4 items-center">
