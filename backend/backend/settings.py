@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&ql73i=&f(7_q9xh#eaki%8z6tdu92rf5h2+!np1itss*c*rr%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True  # Set to True for development
 
-ALLOWED_HOSTS = ['your-app-name.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'your-app-name.onrender.com']
 
 
 # Application definition
@@ -42,13 +42,11 @@ INSTALLED_APPS = [
     'algorithm_api',
     'corsheaders',
 ]
-MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
 
-CORS_ALLOWED_ORIGINS = [
-    "https://yourusername.github.io",  # frontend domain
-]
+
+
 MIDDLEWARE = [
-    'backend.cors_middleware.CorsMiddleware',  # Custom CORS middleware
+    'corsheaders.middleware.CorsMiddleware',  # Django CORS headers middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -124,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # For production
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -135,9 +134,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite default port
     "http://127.0.0.1:5173",
     "http://localhost:3000",  # Alternative React port
+    "https://kritesh00.github.io",  # GitHub Pages
 ]
 
-# Simple CORS solution for development
+# Development CORS settings
 CORS_ALLOW_ALL_ORIGINS = True  # Only for development
 CORS_ALLOW_CREDENTIALS = True
 
