@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+// ✅ Updated: Use Render backend instead of localhost
+const API_BASE_URL = 'https://django-backend-86sb.onrender.com/api';
 
 // Create axios instance with default config
 const api = axios.create({
@@ -16,7 +17,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.code === 'ECONNREFUSED' || error.code === 'ERR_NETWORK') {
-      console.log('Backend server is not running on http://localhost:8000');
+      console.log('Backend server is not reachable at', API_BASE_URL);
     }
     return Promise.reject(error);
   }
