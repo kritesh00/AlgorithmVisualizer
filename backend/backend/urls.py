@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from django.http import HttpResponse
 from algorithm_api.views import AlgorithmViewSet, AlgorithmExecutionViewSet
 
 router = routers.DefaultRouter()
@@ -24,6 +25,7 @@ router.register(r'algorithms', AlgorithmViewSet)
 router.register(r'executions', AlgorithmExecutionViewSet)
 
 urlpatterns = [
+    path('', lambda request: HttpResponse("✅ Backend is working!"))
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
