@@ -16,7 +16,7 @@ export default function App() {
           <SortingVisualizer />
           <SearchingVisualizer />
           <PathfindingVisualizer />
-        </main>
+          </main>
       </div>
     </DashboardProvider>
   );
