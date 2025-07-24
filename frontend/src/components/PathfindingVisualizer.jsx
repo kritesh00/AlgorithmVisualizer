@@ -225,7 +225,7 @@ export default function PathfindingVisualizer() {
 
 
   return (
-    <section id="pathfinding" className="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
+    <section id="pathfinding" className="p-6 bg-white rounded-2xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6">🗺️ Pathfinding Algorithms</h2>
       
       {/* Algorithm Information */}
@@ -233,7 +233,7 @@ export default function PathfindingVisualizer() {
       
       {/* Performance Stats */}
       {(nodesVisited > 0 || executionTime > 0) && (
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+        <div className="mb-6 p-4 bg-blue-50 rounded-lg">
           <h4 className="font-semibold mb-2">Performance Metrics:</h4>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div className="text-center">
@@ -300,7 +300,7 @@ export default function PathfindingVisualizer() {
 
       {/* Current Algorithm Display */}
       {algorithm && (
-        <div className="mb-4 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
+        <div className="mb-4 p-3 bg-yellow-100 rounded-lg">
           <p className="text-center font-semibold">Currently running: {algorithm}</p>
         </div>
       )}
@@ -327,13 +327,13 @@ export default function PathfindingVisualizer() {
           <div className="w-4 h-4 bg-yellow-400 rounded"></div>
           <span>Path</span>
         </div>
-        <span className="text-gray-600 dark:text-gray-400">Click and drag to draw walls</span>
+        <span className="text-gray-600">Click and drag to draw walls</span>
       </div>
 
       {/* Grid Visualization */}
       <div className="flex justify-center">
         <div 
-          className="grid gap-1 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg"
+          className="grid gap-1 p-4 bg-gray-50 rounded-lg"
           style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}
           onMouseLeave={handleMouseUp}
         >
@@ -352,7 +352,7 @@ export default function PathfindingVisualizer() {
                     ? 'bg-yellow-400'
                     : node.isVisited
                     ? 'bg-blue-300'
-                    : 'bg-white dark:bg-gray-700'
+                    : 'bg-white'
                 }`}
                 onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
                 onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}

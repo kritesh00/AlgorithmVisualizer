@@ -8,7 +8,7 @@ export default function AlgorithmInfo({ type, algorithmName }) {
 
   if (loading) {
     return (
-      <div className="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+      <div className="p-4 bg-blue-50 rounded-lg">
         <p className="text-center">Loading algorithm information...</p>
       </div>
     );
@@ -16,8 +16,8 @@ export default function AlgorithmInfo({ type, algorithmName }) {
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 dark:bg-red-900 rounded-lg">
-        <p className="text-center text-red-600 dark:text-red-400">
+      <div className="p-4 bg-red-50 rounded-lg">
+        <p className="text-center text-red-600">
           Error loading algorithms: {error}
         </p>
       </div>
@@ -33,7 +33,7 @@ export default function AlgorithmInfo({ type, algorithmName }) {
   }
 
   return (
-    <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+    <div className="mb-6 p-4 bg-gray-50 rounded-lg">
       {/* Algorithm Selector */}
       <div className="mb-4 flex flex-wrap gap-4 items-center">
         <label className="font-medium">Algorithm Info:</label>
@@ -43,7 +43,7 @@ export default function AlgorithmInfo({ type, algorithmName }) {
             const selected = algorithms.find(alg => alg.id === parseInt(e.target.value));
             setSelectedAlgorithm(selected);
           }}
-          className="px-3 py-1 border rounded dark:bg-gray-600 dark:border-gray-500"
+          className="px-3 py-1 border rounded"
         >
           {algorithms.map(algorithm => (
             <option key={algorithm.id} value={algorithm.id}>
@@ -68,7 +68,7 @@ export default function AlgorithmInfo({ type, algorithmName }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <h4 className="font-semibold text-lg">{displayAlgorithm.name}</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                <p className="text-sm text-gray-600 mt-2">
                   {displayAlgorithm.description}
                 </p>
               </div>
@@ -76,13 +76,13 @@ export default function AlgorithmInfo({ type, algorithmName }) {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="font-medium">Time Complexity:</span>
-                  <span className="text-blue-600 dark:text-blue-400 font-mono">
+                  <span className="text-blue-600 font-mono">
                     {displayAlgorithm.complexity_time}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium">Space Complexity:</span>
-                  <span className="text-green-600 dark:text-green-400 font-mono">
+                  <span className="text-green-600 font-mono">
                     {displayAlgorithm.complexity_space}
                   </span>
                 </div>

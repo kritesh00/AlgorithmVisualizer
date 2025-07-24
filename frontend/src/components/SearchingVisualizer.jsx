@@ -144,7 +144,7 @@ export default function SearchingVisualizer() {
   };
 
   return (
-    <section id="searching" className="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
+    <section id="searching" className="p-6 bg-white rounded-2xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6">🔍 Searching Algorithms</h2>
       
       {/* Algorithm Information */}
@@ -152,7 +152,7 @@ export default function SearchingVisualizer() {
       
       {/* Performance Stats */}
       {(comparisons > 0 || executionTime > 0) && (
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+        <div className="mb-6 p-4 bg-blue-50 rounded-lg">
           <h4 className="font-semibold mb-2">Performance Metrics:</h4>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div className="text-center">
@@ -184,7 +184,7 @@ export default function SearchingVisualizer() {
             value={target}
             onChange={(e) => setTarget(Number(e.target.value))}
             disabled={searching}
-            className="w-20 px-2 py-1 border rounded dark:bg-gray-700 dark:border-gray-600"
+            className="w-20 px-2 py-1 border rounded"
             min="0"
             max="200"
           />
@@ -243,20 +243,20 @@ export default function SearchingVisualizer() {
 
       {/* Current Algorithm Display */}
       {algorithm && (
-        <div className="mb-4 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
+        <div className="mb-4 p-3 bg-yellow-100 rounded-lg">
           <p className="text-center font-semibold">Currently running: {algorithm}</p>
         </div>
       )}
 
       {/* Result Display */}
       {foundIndex !== -1 && (
-        <div className="mb-4 p-3 bg-green-100 dark:bg-green-900 rounded-lg">
+        <div className="mb-4 p-3 bg-green-100 rounded-lg">
           <p className="text-center font-semibold">Found target {target} at index {foundIndex}!</p>
         </div>
       )}
 
       {/* Visualization */}
-      <div className="flex items-center justify-center gap-2 p-6 bg-gray-50 dark:bg-gray-900 rounded-lg overflow-x-auto">
+      <div className="flex items-center justify-center gap-2 p-6 bg-gray-50 rounded-lg overflow-x-auto">
         {array.map((value, index) => (
           <div key={index} className="flex flex-col items-center">
             <div
@@ -270,14 +270,14 @@ export default function SearchingVisualizer() {
             >
               {value}
             </div>
-            <div className="text-xs mt-1 text-gray-600 dark:text-gray-400">
+            <div className="text-xs mt-1 text-gray-600">
               {index}
             </div>
           </div>
         ))}
       </div>
       
-      <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+      <div className="mt-4 text-center text-sm text-gray-600">
         Array values are shown above with their indices below
       </div>
     </section>

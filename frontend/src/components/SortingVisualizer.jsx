@@ -306,7 +306,7 @@ export default function SortingVisualizer() {
   };
 
   return (
-    <section id="sorting" className="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
+    <section id="sorting" className="p-6 bg-white rounded-2xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6">🟢 Sorting Algorithms</h2>
       
       {/* Algorithm Information */}
@@ -314,7 +314,7 @@ export default function SortingVisualizer() {
       
       {/* Performance Stats */}
       {(comparisons > 0 || swaps > 0 || executionTime > 0) && (
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+        <div className="mb-6 p-4 bg-blue-50 rounded-lg">
           <h4 className="font-semibold mb-2">Performance Metrics:</h4>
           <div className="grid grid-cols-3 gap-4 text-sm">
             <div className="text-center">
@@ -401,13 +401,13 @@ export default function SortingVisualizer() {
 
       {/* Current Algorithm Display */}
       {algorithm && (
-        <div className="mb-4 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
+        <div className="mb-4 p-3 bg-yellow-100 rounded-lg">
           <p className="text-center font-semibold">Currently running: {algorithm}</p>
         </div>
       )}
 
       {/* Visualization */}
-      <div className="flex items-end justify-center h-80 bg-gray-50 dark:bg-gray-900 rounded-lg p-4 overflow-hidden">
+      <div className="flex items-end justify-center h-80 bg-gray-50 rounded-lg p-4 overflow-hidden">
         {array.map((value, index) => (
           <div
             key={index}
