@@ -17,11 +17,11 @@ Visit the live application: [https://kritesh00.github.io/AlgorithmVisualizer](ht
 
 ## ✨ Features
 
-- 🎨 **Interactive Visualizations** - Watch algorithms execute step-by-step
-- 🌙 **Dark Mode Support** - Toggle between light and dark themes
-- 📱 **Responsive Design** - Works seamlessly across all devices
-- ⚡ **Real-time Updates** - See algorithm execution in real-time
-- 🎭 **Smooth Animations** - Powered by Framer Motion for fluid transitions
+- 🎨 **Interactive Visualizations** - Watch algorithms execute step-by-step.
+- 🌙 **Dark Mode Support** - Toggle between light and dark themes.
+- 📱 **Responsive Design** - Works seamlessly across all devices.
+- ⚡ **Real-time Updates** - See algorithm execution in real-time.
+- 🎭 **Smooth Animations** - Powered by Framer Motion for fluid transitions.
 
 ## 🛠️ Tech Stack
 
